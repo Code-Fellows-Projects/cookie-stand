@@ -1,8 +1,8 @@
 'use strict'
 
 
-var seattle = document.getElementById('seattle');
-var listItem = document.createElement('li');
+//var seattle = document.getElementById('seattle');
+//var listItem = document.createElement('li');
 //var storeHours = ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:00pm', '2:00pm', '3:00pm', '4:00pm', '5:00pm', '6:00pm', '7:00pm'];
 // object literals :
 
@@ -13,17 +13,17 @@ var storeSeattle = {
     minCustomerEachHour: 23,
     maximumCustomerEachHour: 65,
     averageCookieSale: 6.3,
-    //cookiesSoldEachHour: [],
+    //cookiesInEachHour: [],
     //customersEachHour: [],
     generateCustomersEachHour: 
-        function (min, max){ //randomCustomer (min, max){
+        function (min, max){ // generates randomCustomer (min, max){
             min = Math.ceil(minCustomerEachHour);
             max = Math.floor(maximumCustomerEachHour);
             return Math.floor(Math.random() * (max - min + 1) + min);
    },
  
 
-    generateCookiesSoldEachHour: function (){
+    generateCookiesInEachHour: function (){
         return Math.round(this.generateCustomersEachHour(this.minCustomersEachHour, this.maximumCustomerEachHour) * this.averageCookieSale);
 
     },
@@ -33,18 +33,21 @@ var storeSeattle = {
    cookiePerHour: [],
     
     
-    //function randomCookieCustomer(){
-            //var randomHours = ; 
-                //for (var i = 0; i < );
-
+    cookieNumberPerHour: function(){
+            for (var i = 0; i < this.storeHours.length; i++); {
+                console.log(i);
+            }
+            
+            //im lostttttttttt and confusedddddd
             }
         }
-        
+        var seattle = document.getElementById('seattle');
+        var listItem = document.createElement('li');
 
     // array that holds customers each hour
     // array cookies each hour for loop through hours 
-
-//for loop to loop through hours array
+    // generate cookies sold each hour by multiplying your random number of customers by the average cookies sold per customer
+    //for loop to loop through hours array
     // in for loop push.  array name .push(random(min max customer value))
 
    
@@ -69,9 +72,10 @@ storeHours: ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:0
 cookiePerHour: [],
 },
 
-//function randomCookieCustomer(){
-        //var randomHours = ; 
-            //for (var i = 0; i < );
+cookieNumberPerHour: function(){
+    for (var i = 0; i < this.storeHours.length; i++); {
+        console.log(i);
+    }
 
         
 },
@@ -96,10 +100,10 @@ storeHours: ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:0
 
 cookiePerHour: [],
 
-
-function randomCookieCustomer(){
-        var randomHours = ; 
-            for (var i = 0; i < );
+cookieNumberPerHour: function(){
+    for (var i = 0; i < this.storeHours.length; i++); {
+        console.log(i);
+    }
 
 
 
@@ -124,10 +128,10 @@ storeHours: ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:0
 
 cookiePerHour: [],
 
-
-function randomCookieCustomer(){
-        var randomHours = ; 
-            for (var i = 0; i < );
+cookieNumberPerHour: function(){
+    for (var i = 0; i < this.storeHours.length; i++); {
+        console.log(i);
+    }
 
 
 
@@ -153,9 +157,10 @@ storeHours: ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:0
 cookiePerHour: [],
 
 
-function randomCookieCustomer(){
-        var randomHours = ; 
-            for (var i = 0; i < );
+cookieNumberPerHour: function(){
+    for (var i = 0; i < this.storeHours.length; i++); {
+        console.log(i);
+    }
 
 
 
