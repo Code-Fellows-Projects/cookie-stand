@@ -2,323 +2,88 @@
 
 var storeHours = ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:00pm', '2:00pm', '3:00pm', '4:00pm', '5:00pm', '6:00pm', '7:00pm'];
 
-var seattle = {
-    name: 'seattle',
-    minimumCustomersPerHour: 23,
-    maximumCustomersPerHour: 65,
-    averageCookiesPerCustomer: 6.3,
-    totalCookiesForTheDay: 0,
-    // a random number between my minimum and my maximum
-    customersEachHour: [],
-    // in order to get a cookies sold each hour array, we are going to need to loop over a customers each hour array and multiply that by the average cookies they buy
-    // [23, 45, 67, 24...] * 6.3
-    cookiesSoldEachHour: [],  // this is our money array
+var allStores = [];
 
-    generateCustomersEachHour: function (){ 
-        // generate the customersEachHour array // get a random number somewhere between the min and max and put that random number into the customersEachHour array for each hour
-        for(var i=0; i<storeHours.length; i++){
-             var randomNumber = Math.floor(Math.random() * (this.maximumCustomersPerHour - this.minimumCustomersPerHour + 1) + this.minimumCustomersPerHour);
+function Stores(name, minimumCustomersPerHour, maximumCustomersPerHour, averageCookiesPerCustomer){
+  this.name = name;
+  this.minimumCustomersPerHour = minimumCustomersPerHour;
+  this.maximumCustomersPerHour = maximumCustomersPerHour;
+  this.averageCookiesPerCustomer = averageCookiesPerCustomer;
+  this.customersEachHour = [];
+  this.cookiesSoldEachHour = [];
+  this.totalCookiesForTheDay = 0;
+  allStores.push(this);
 
-            this.customersEachHour.push(randomNumber);   
-        }     
-   },
-
-   generateCookiesSoldEachHour: function(){
-       this.generateCustomersEachHour(); //this generates an array of customers
-       //loop over my customers each hour array
-       // multiply the customers by the average cookies that they buy
-       //put that number in the cookiesSoldEachHour array
-
-        for(var i=0; i<storeHours.length; i++) {
-            var cookiesSoldThisHour = Math.ceil(this.customersEachHour[i] * this.averageCookiesPerCustomer);
-
-            this.totalCookiesForTheDay += cookiesSoldThisHour;
-
-            this.cookiesSoldEachHour.push(cookiesSoldThisHour);
-        }
-    },
-
-    render: function(){
-        var parentSection = document.getElementById('seattle');
-        //create h2
-        var headingSeattle = document.createElement('h2');
-        // fill it with content - this.name
-        headingSeattle.textContent = this.name;
-        // append it to the parent 
-        parentSection.appendChild(headingSeattle);
-       
-
-        //get the ul with the id of seattle-sales from the dom - that is going to our parent element
-        var salesList = document.getElementById('seattle-sales');
-
-        for(var i=0; i<this.cookiesSoldEachHour.length; i++) {
-            // create an li
-            var liElement = document.createElement('li');
-            // fill it with content from cookies sold each hour
-            liElement.textContent = `${storeHours[i]}: ${this.cookiesSoldEachHour[i]} cookies;`
-             //${} -contain a variable inline with a string
-
-            salesList.appendChild(liElement);
-        }
-    }
 }
-  
-  
 
-var tokyo = {
-    name: 'tokyo',
-    minimumCustomersPerHour: 3,
-    maximumCustomersPerHour: 24,
-    averageCookiesPerCustomer: 1.2,
-    totalCookiesForTheDay: 0,
-    // a random number between my minimum and my maximum
-    customersEachHour: [],
-    // in order to get a cookies sold each hour array, we are going to need to loop over a customers each hour array and multiply that by the average cookies they buy
-    // [23, 45, 67, 24...] * 6.3
-    cookiesSoldEachHour: [],  // this is our money array
+var seattle = new Stores('Seattle', 23, 65, 6.3);
+var tokyo = new Stores('Tokyo', 3, 24, 1.2);
+var dubai = new Stores('Dubai', 11, 38, 3.7);
+var paris = new Stores('Paris', 20, 28, 2.3);
+var lima = new Stores('Lima', 2, 16, 4.6);
 
-    generateCustomersEachHour: function (){ 
-        // generate the customersEachHour array // get a random number somewhere between the min and max and put that random number into the customersEachHour array for each hour
-        for(var i=0; i<storeHours.length; i++){
-             var randomNumber = Math.floor(Math.random() * (this.maximumCustomersPerHour - this.minimumCustomersPerHour + 1) + this.minimumCustomersPerHour);
 
-            this.customersEachHour.push(randomNumber);   
-        }     
-   },
-   generateCookiesSoldEachHour: function(){
-       this.generateCustomersEachHour(); //this generates an array of customers
-   
+Stores.prototype.generateCustomersEachHour = function(){
+  for(var i=0; i<storeHours.length; i++){
+    var randomNumber = Math.floor(Math.random() * (this.maximumCustomersPerHour - this.minimumCustomersPerHour + 1) + this.minimumCustomersPerHour);
 
-        for(var i=0; i<storeHours.length; i++) {
-            var cookiesSoldThisHour = Math.ceil(this.customersEachHour[i] * this.averageCookiesPerCustomer);
+    this.customersEachHour.push(randomNumber);
+  }
+};
+Stores.prototype.generateCookiesSoldEachHour = function(){
+  this.generateCustomersEachHour();
+  for(var i=0; i<storeHours.length; i++) {
+    var cookiesSoldThisHour = Math.ceil(this.customersEachHour[i] * this.averageCookiesPerCustomer);
 
-            this.totalCookiesForTheDay += cookiesSoldThisHour;
+    this.totalCookiesForTheDay += cookiesSoldThisHour;
 
-            this.cookiesSoldEachHour.push(cookiesSoldThisHour);
-
-        }
-    }, 
-
-    render: function(){
-        var parentSection = document.getElementById('tokyo');
-        //create h2
-        var headingTokyo = document.createElement('h2');
-        // fill it with content - this.name
-        headingTokyo.textContent = this.name;
-        // append it to the parent 
-        parentSection.appendChild(headingTokyo);
-       
-
-        //get the ul with the id of seattle-sales from the dom - that is going to our parent element
-        var salesList = document.getElementById('tokyo-sales');
-
-        for(var i=0; i<this.cookiesSoldEachHour.length; i++) {
-            // create an li
-            var liElement = document.createElement('li');
-            // fill it with content from cookies sold each hour
-            liElement.textContent = `${storeHours[i]}: ${this.cookiesSoldEachHour[i]} cookies;`
-             //${} -contain a variable inline with a string
-
-            salesList.appendChild(liElement);
-        }
-    }
+    this.cookiesSoldEachHour.push(cookiesSoldThisHour);
+  }
+  console.log(this.cookiesSoldEachHour);
+};
+function storeHeaderRow(){
+  var trElement = document.createElement('tr');
+  var thElement = document.createElement('th');
+  trElement.appendChild(thElement);
+  for(var i=0; i<storeHours.length; i++) {
+    var headerHours = document.createElement('th');
+    headerHours.textContent = storeHours[i];
+    trElement.appendChild(headerHours);
+  }
+  var totals = document.createElement('th');
+  totals.textContent = 'Daily Location Totals';
+  trElement.appendChild(totals);
+  var parentElement = document.getElementById('table');
+  parentElement.appendChild(trElement);
 }
 
 
-    var dubai = {
-        name: 'dubai',
-        minimumCustomersPerHour: 11,
-        maximumCustomersPerHour: 38,
-        averageCookiesPerCustomer: 3.7,
-        totalCookiesForTheDay: 0,
-        // a random number between my minimum and my maximum
-        customersEachHour: [],
-        // in order to get a cookies sold each hour array, we are going to need to loop over a customers each hour array and multiply that by the average cookies they buy
-        // [23, 45, 67, 24...] * 6.3
-        cookiesSoldEachHour: [],  // this is our money array
-    
-        generateCustomersEachHour: function (){ 
-            // generate the customersEachHour array // get a random number somewhere between the min and max and put that random number into the customersEachHour array for each hour
-            for(var i=0; i<storeHours.length; i++){
-                 var randomNumber = Math.floor(Math.random() * (this.maximumCustomersPerHour - this.minimumCustomersPerHour + 1) + this.minimumCustomersPerHour);
-    
-                this.customersEachHour.push(randomNumber);   
-            }     
-       },
-        generateCookiesSoldEachHour: function(){
-           this.generateCustomersEachHour(); //this generates an array of customers
-       
-    
-            for(var i=0; i<storeHours.length; i++) {
-                var cookiesSoldThisHour = Math.ceil(this.customersEachHour[i] * this.averageCookiesPerCustomer);
-    
-                this.totalCookiesForTheDay += cookiesSoldThisHour;
-    
-                this.cookiesSoldEachHour.push(cookiesSoldThisHour);
-    
-            }
-    },
+Stores.prototype.generateRows = function (){
+  this.generateCookiesSoldEachHour();
+  var trElement = document.createElement('tr');
+  console.log(this);
+  this.cookiesSoldEachHour.unshift(this.name);
+  for(var i=0; i <= storeHours.length; i++) {
 
-    render: function(){
-            var parentSection = document.getElementById('dubai');
-            //create h2
-            var headingDubai = document.createElement('h2');
-            // fill it with content - this.name
-            headingDubai.textContent = this.name;
-            // append it to the parent 
-            parentSection.appendChild(headingDubai);
-           
-    
-            //get the ul with the id of seattle-sales from the dom - that is going to our parent element
-            var salesList = document.getElementById('dubai-sales');
-    
-            for(var i=0; i<this.cookiesSoldEachHour.length; i++) {
-                // create an li
-                var liElement = document.createElement('li');
-                // fill it with content from cookies sold each hour
-                liElement.textContent = `${storeHours[i]}: ${this.cookiesSoldEachHour[i]} cookies;`
-                 //${} -contain a variable inline with a string
-    
-                salesList.appendChild(liElement);
-            }
-        }
-    }
+    var tdElement = document.createElement('td');
+    tdElement.textContent = `${this.cookiesSoldEachHour[i]}`;
+    trElement.appendChild(tdElement);
+  }
+  var tdElementTwo = document.createElement('td');
+  tdElementTwo.textContent = `${this.totalCookiesForTheDay}`;
+  trElement.appendChild(tdElementTwo);
+
+  var parentElement = document.getElementById('table');
+  parentElement.appendChild(trElement);
+};
+
+storeHeaderRow();
+seattle.generateRows();
+tokyo.generateRows();
+dubai.generateRows();
+paris.generateRows();
+lima.generateRows();
 
 
-    var paris = {
-        name: 'paris',
-        minimumCustomersPerHour: 20,
-        maximumCustomersPerHour: 38,
-        averageCookiesPerCustomer: 2.3,
-        totalCookiesForTheDay: 0,
-        // a random number between my minimum and my maximum
-        customersEachHour: [],
-        // in order to get a cookies sold each hour array, we are going to need to loop over a customers each hour array and multiply that by the average cookies they buy
-        // [23, 45, 67, 24...] * 6.3
-        cookiesSoldEachHour: [],  // this is our money array
-    
-        generateCustomersEachHour: function (){ 
-            // generate the customersEachHour array // get a random number somewhere between the min and max and put that random number into the customersEachHour array for each hour
-            for(var i=0; i<storeHours.length; i++){
-                 var randomNumber = Math.floor(Math.random() * (this.maximumCustomersPerHour - this.minimumCustomersPerHour + 1) + this.minimumCustomersPerHour);
-    
-                this.customersEachHour.push(randomNumber);   
-            }     
-       },
-       generateCookiesSoldEachHour: function(){
-           this.generateCustomersEachHour(); //this generates an array of customers
-       
-    
-            for(var i=0; i<storeHours.length; i++) {
-                var cookiesSoldThisHour = Math.ceil(this.customersEachHour[i] * this.averageCookiesPerCustomer);
-    
-                this.totalCookiesForTheDay += cookiesSoldThisHour;
-    
-                this.cookiesSoldEachHour.push(cookiesSoldThisHour);
-    
-            }
-    },
-
-
-    render: function(){
-        var parentSection = document.getElementById('paris');
-        //create h2
-        var headingParis = document.createElement('h2');
-        // fill it with content - this.name
-        headingParis.textContent = this.name;
-        // append it to the parent 
-        parentSection.appendChild(headingParis);
-       
-
-        //get the ul with the id of seattle-sales from the dom - that is going to our parent element
-        var salesList = document.getElementById('paris-sales');
-
-        for(var i=0; i<this.cookiesSoldEachHour.length; i++) {
-            // create an li
-            var liElement = document.createElement('li');
-            // fill it with content from cookies sold each hour
-            liElement.textContent = `${storeHours[i]}: ${this.cookiesSoldEachHour[i]} cookies;`
-             //${} -contain a variable inline with a string
-
-            salesList.appendChild(liElement);
-        }
-    }
-}
-
-
-    var lima = {
-        name: 'lima',
-        minimumCustomersPerHour: 2,
-        maximumCustomersPerHour: 16,
-        averageCookiesPerCustomer: 4.6,
-        totalCookiesForTheDay: 0,
-        // a random number between my minimum and my maximum
-        customersEachHour: [],
-        // in order to get a cookies sold each hour array, we are going to need to loop over a customers each hour array and multiply that by the average cookies they buy
-        // [23, 45, 67, 24...] * 6.3
-        cookiesSoldEachHour: [],  // this is our money array
-    
-        generateCustomersEachHour: function (){ 
-            // generate the customersEachHour array // get a random number somewhere between the min and max and put that random number into the customersEachHour array for each hour
-            for(var i=0; i<storeHours.length; i++){
-                 var randomNumber = Math.floor(Math.random() * (this.maximumCustomersPerHour - this.minimumCustomersPerHour + 1) + this.minimumCustomersPerHour);
-    
-                this.customersEachHour.push(randomNumber);   
-            }     
-       },
-       generateCookiesSoldEachHour: function(){
-           this.generateCustomersEachHour(); //this generates an array of customers
-       
-    
-            for(var i=0; i<storeHours.length; i++) {
-                var cookiesSoldThisHour = Math.ceil(this.customersEachHour[i] * this.averageCookiesPerCustomer);
-    
-                this.totalCookiesForTheDay += cookiesSoldThisHour;
-    
-                this.cookiesSoldEachHour.push(cookiesSoldThisHour);
-    
-            }
-    }, 
-
-    render: function(){
-            var parentSection = document.getElementById('lima');
-            //create h2
-            var headingLima = document.createElement('h2');
-            // fill it with content - this.name
-            headingLima.textContent = this.name;
-            // append it to the parent 
-            parentSection.appendChild(headingLima);
-           
-    
-            //get the ul with the id of seattle-sales from the dom - that is going to our parent element
-            var salesList = document.getElementById('lima-sales');
-    
-            for(var i=0; i<this.cookiesSoldEachHour.length; i++) {
-                // create an li
-                var liElement = document.createElement('li');
-                // fill it with content from cookies sold each hour
-                liElement.textContent = `${storeHours[i]}: ${this.cookiesSoldEachHour[i]} cookies;`
-                 //${} -contain a variable inline with a string
-    
-                salesList.appendChild(liElement);
-            }
-        }
-    }
-    
-seattle.generateCookiesSoldEachHour();
-tokyo.generateCookiesSoldEachHour();
-dubai.generateCookiesSoldEachHour();
-paris.generateCookiesSoldEachHour();
-lima.generateCookiesSoldEachHour();
-
-
-
-
-// // starting numbers given
-// // stores Location ('Seattle', 23, 65, 6.3);
-// stores Location ('Tokyo', 3, 24, 1.2);
-// stores Location ('Dubai', 11, 38, 3.7);
-// stores Location ('Paris', 20, 28, 2.3);
-// stores Location ('Lima', 2, 16, 4.6);
 
 
