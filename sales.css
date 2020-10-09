@@ -1,0 +1,31 @@
+* {
+    background-color: rgb(248, 162, 152);
+   
+   
+}
+h1 {
+    
+    font-size: 50px;
+    border: 8px dotted rgb(240, 171, 45);
+    width: 800px;
+    margin: 50px 0px 40px 350px;
+    text-align: center;
+    padding: 20px;
+}
+
+#table {
+    margin: 0px 0px 20px 200px;
+    border: 8px dotted rgb(240, 171, 45);
+    padding: 30px;
+}
+h2{
+   
+
+    font-size: 40px;
+    border: 8px dotted rgb(240, 171, 45);
+        width: 500px;
+    text-align: center;
+    margin: 50px 0px 40px 500px;
+    padding: 20px;
+}
+
