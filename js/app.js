@@ -16,7 +16,7 @@ function Stores(name, minimumCustomersPerHour, maximumCustomersPerHour, averageC
   this.cookiesSoldEachHour = [];
   this.totalCookiesForTheDay = 0;
   this.totalHourCookie = 0; //added 10/07
-  // this.generateCustomersEachHour();
+  // this.generateCookiesSoldEachHour();
   allStores.push(this);
 
 }
@@ -55,6 +55,7 @@ Stores.prototype.generateCookiesSoldEachHour = function () {
 function storeHeaderRow() {
   var trElement = document.createElement('tr');
   var thElement = document.createElement('th');
+  thElement.textContent = 'Store Location'
   trElement.appendChild(thElement);
   for (var i = 0; i < storeHours.length; i++) {
     var headerHours = document.createElement('th');
@@ -73,11 +74,14 @@ function storeHeaderRow() {
 Stores.prototype.generateRows = function () {
   // this.generateCookiesSoldEachHour();
   var trElement = document.createElement('tr');
+  var tdElement = document.createElement('td');
+  tdElement.textContent = this.name;
+  trElement.appendChild(tdElement);
   //console.log(this);
-  this.cookiesSoldEachHour.unshift(this.name);
-  for (var i = 0; i <= storeHours.length; i++) {
+  // this.cookiesSoldEachHour.unshift(this.name);
+  for (var i = 0; i < storeHours.length; i++) {
 
-    var tdElement = document.createElement('td');
+    tdElement = document.createElement('td');
     tdElement.textContent = `${this.cookiesSoldEachHour[i]}`;
     trElement.appendChild(tdElement);
 
@@ -104,7 +108,7 @@ function generateHourlyTotal(allStores) {
   trDailyTotals.appendChild(thDailyElement);
   var hourlyCookies = 0;
   var grandHourlyCookiesTotal = 0;
-  for (var k = 1; k < allStores[0].cookiesSoldEachHour.length; k++) {
+  for (var k = 0; k < allStores[0].cookiesSoldEachHour.length; k++) {
     for (var m = 0; m < allStores.length; m++) {
       hourlyCookies += allStores[m].cookiesSoldEachHour[k];
 
@@ -126,13 +130,19 @@ function handleSubmit(event) {
   event.preventDefault();
   console.log('this is my event.target.average', event.target.locationCookie.value);
   var patsLocation = event.target.locationCookie.value;
-  var patsMinimum = event.target.minimumCookie.value;
-  var patsMaximum = event.target.maximumCookie.value;
-  var patsAverage = event.target.averageCookie.value;
+  var patsMinimum = parseInt(event.target.minimumCookie.value);
+  var patsMaximum = parseInt(event.target.maximumCookie.value);
+  var patsAverage = parseInt(event.target.averageCookie.value);
   new Stores(patsLocation, patsMinimum, patsMaximum, patsAverage);
-
+  console.log(allStores, 'hellooooo');
   document.getElementById('table').innerHTML = '';
+  storeHeaderRow();
+  for (var j = 0; j < allStores.length; j++) {
+    allStores[j].generateCookiesSoldEachHour();
+
+  }
   allRows(allStores);
+
 }
 
 storeHeaderRow();
