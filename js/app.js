@@ -16,17 +16,12 @@ function Stores(name, minimumCustomersPerHour, maximumCustomersPerHour, averageC
   this.cookiesSoldEachHour = [];
   this.totalCookiesForTheDay = 0;
   this.totalHourCookie = 0; //added 10/07
-  // this.generateCookiesSoldEachHour();
+  this.generateCookiesSoldEachHour();
   allStores.push(this);
 
 }
 // object instances
 
-new Stores('Seattle', 23, 65, 6.3);
-new Stores('Tokyo', 3, 24, 1.2);
-new Stores('Dubai', 11, 38, 3.7);
-new Stores('Paris', 20, 38, 2.3);
-new Stores('Lima', 2, 16, 4.6);
 
 
 Stores.prototype.generateCustomersEachHour = function () {
@@ -34,12 +29,10 @@ Stores.prototype.generateCustomersEachHour = function () {
     var randomNumber = Math.floor(Math.random() * (this.maximumCustomersPerHour - this.minimumCustomersPerHour + 1) + this.minimumCustomersPerHour);
 
     return randomNumber;
-    // this.customersEachHour.push(randomNumber);
 
   }
 };
 Stores.prototype.generateCookiesSoldEachHour = function () {
-  // this.generateCustomersEachHour();
   for (var i = 0; i < storeHours.length; i++) {
     var cookiesSoldThisHour = Math.ceil(this.generateCustomersEachHour() * this.averageCookiesPerCustomer);
 
@@ -47,7 +40,6 @@ Stores.prototype.generateCookiesSoldEachHour = function () {
 
     this.cookiesSoldEachHour.push(cookiesSoldThisHour);
   }
-  console.log(this.cookiesSoldEachHour);
 };
 
 //this is creating the top row of hours on the table
@@ -72,23 +64,18 @@ function storeHeaderRow() {
 // this is generating the stores and totals for daily location totals
 
 Stores.prototype.generateRows = function () {
-  // this.generateCookiesSoldEachHour();
   var trElement = document.createElement('tr');
   var tdElement = document.createElement('td');
   tdElement.textContent = this.name;
   trElement.appendChild(tdElement);
-  //console.log(this);
-  // this.cookiesSoldEachHour.unshift(this.name);
+
   for (var i = 0; i < storeHours.length; i++) {
 
     tdElement = document.createElement('td');
     tdElement.textContent = `${this.cookiesSoldEachHour[i]}`;
     trElement.appendChild(tdElement);
 
-    //   // starting total loop
-    //   for (var j = 0; j < storeHours.length; j++) {
-    //     console.log(`cookiesSoldEachHour type: ${typeof (this.cookiesSoldEachHour)}`);
-    //   }
+
     var parentElement = document.getElementById('table');
     parentElement.appendChild(trElement);
   }
@@ -125,7 +112,7 @@ function generateHourlyTotal(allStores) {
 
 }
 
-//adding store i think...
+//adding new store
 function handleSubmit(event) {
   event.preventDefault();
   console.log('this is my event.target.average', event.target.locationCookie.value);
@@ -134,28 +121,23 @@ function handleSubmit(event) {
   var patsMaximum = parseInt(event.target.maximumCookie.value);
   var patsAverage = parseInt(event.target.averageCookie.value);
   new Stores(patsLocation, patsMinimum, patsMaximum, patsAverage);
-  console.log(allStores, 'hellooooo');
+
   document.getElementById('table').innerHTML = '';
   storeHeaderRow();
-  for (var j = 0; j < allStores.length; j++) {
-    allStores[j].generateCookiesSoldEachHour();
 
-  }
   allRows(allStores);
 
 }
+new Stores('Seattle', 23, 65, 6.3);
+new Stores('Tokyo', 3, 24, 1.2);
+new Stores('Dubai', 11, 38, 3.7);
+new Stores('Paris', 20, 38, 2.3);
+new Stores('Lima', 2, 16, 4.6);
 
 storeHeaderRow();
-// seattle.generateRows();
-// tokyo.generateRows();   
-// dubai.generateRows();
-// paris.generateRows();
-// lima.generateRows();
-addNewStoreForm.addEventListener('submit', handleSubmit);
-for (var j = 0; j < allStores.length; j++) {
-  allStores[j].generateCookiesSoldEachHour();
 
-}
+addNewStoreForm.addEventListener('submit', handleSubmit);
+
 function allRows(allStores) {
   for (var i = 0; i < allStores.length; i++) {
     allStores[i].generateRows();
