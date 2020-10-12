@@ -6,6 +6,7 @@ var storeHours = ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', 
 var allStores = [];
 var addNewStoreForm = document.getElementById('newStoreLocation'); //new line of code...
 
+// constructor function
 
 function Stores(name, minimumCustomersPerHour, maximumCustomersPerHour, averageCookiesPerCustomer) {
   this.name = name;
