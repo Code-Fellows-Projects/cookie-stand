@@ -20,9 +20,8 @@ function Stores(name, minimumCustomersPerHour, maximumCustomersPerHour, averageC
   allStores.push(this);
 
 }
-// object instances
 
-
+// helper function
 
 Stores.prototype.generateCustomersEachHour = function () {
   for (var i = 0; i < storeHours.length; i++) {
@@ -128,6 +127,8 @@ function handleSubmit(event) {
   allRows(allStores);
 
 }
+// object instances
+
 new Stores('Seattle', 23, 65, 6.3);
 new Stores('Tokyo', 3, 24, 1.2);
 new Stores('Dubai', 11, 38, 3.7);
